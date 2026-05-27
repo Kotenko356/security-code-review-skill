@@ -13,13 +13,25 @@
 
 ## Установка
 
+### Автоматически (через AI-агента)
+
+Просто скажи своему агенту в чате:
+
+> *«Установи скилл для security-ревью из репозитория Kotenko356/security-code-review-skill»*
+
+Агент сам склонирует репозиторий и разместит скилл в нужной директории. Подходит для Kilo, Claude Code, Codex CLI и любого агента с доступом к терминалу.
+
+### Вручную
+
 ```bash
-# Клонировать и скопировать в директорию скиллов
 git clone https://github.com/Kotenko356/security-code-review-skill.git
 cp -r security-code-review-skill/skills/security-code-review ~/.kilocode/skills/
 
-# Или для Claude Code
+# Для Claude Code
 cp -r security-code-review-skill/skills/security-code-review ~/.claude/skills/
+
+# Для Cursor
+cp -r security-code-review-skill/skills/security-code-review .cursor/skills/
 ```
 
 ## Использование
