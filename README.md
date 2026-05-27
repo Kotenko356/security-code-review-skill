@@ -1,67 +1,67 @@
 # Security Code Review Skill
 
-AI-agent skill for automated security audits of codebases. When loaded, the agent analyzes the project, fetches domain-specific skills from [Anthropic Cybersecurity Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) and [Trail of Bits](https://github.com/VoltAgent/awesome-agent-skills), and produces a vulnerability report.
+Скилл для AI-агентов, выполняющий автоматический аудит безопасности кодовой базы. При загрузке агент анализирует проект, подгружает доменные скиллы из [Anthropic Cybersecurity Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) и [Trail of Bits](https://github.com/VoltAgent/awesome-agent-skills), затем выдаёт отчёт по уязвимостям.
 
-## Supported Platforms
+## Поддерживаемые платформы
 
-Any agent supporting the [agentskills.io](https://agentskills.io) standard:
-- **Kilo** — copy to `~/.kilocode/skills/security-code-review/`
-- **Claude Code** — copy to `~/.claude/skills/security-code-review/`
-- **Cursor** — copy to `.cursor/skills/security-code-review/`
-- **Codex CLI** — copy to `~/.codex/skills/security-code-review/`
-- **OpenCode** — copy to `~/.opencode/skills/security-code-review/`
+Любой агент, совместимый со стандартом [agentskills.io](https://agentskills.io):
+- **Kilo** — скопировать в `~/.kilocode/skills/security-code-review/`
+- **Claude Code** — скопировать в `~/.claude/skills/security-code-review/`
+- **Cursor** — скопировать в `.cursor/skills/security-code-review/`
+- **Codex CLI** — скопировать в `~/.codex/skills/security-code-review/`
+- **OpenCode** — скопировать в `~/.opencode/skills/security-code-review/`
 
-## Installation
+## Установка
 
 ```bash
-# Clone to your skills directory
-git clone https://github.com/$USER/security-code-review-skill.git
+# Клонировать и скопировать в директорию скиллов
+git clone https://github.com/Kotenko356/security-code-review-skill.git
 cp -r security-code-review-skill/skills/security-code-review ~/.kilocode/skills/
 
-# Or for Claude Code
+# Или для Claude Code
 cp -r security-code-review-skill/skills/security-code-review ~/.claude/skills/
 ```
 
-## Usage
+## Использование
 
 ```
->> review this project for security vulnerabilities
->> run a security audit on src/
->> check this code for crypto weaknesses
+проверь проект на уязвимости
+проревьюй код на безопасность
+найди криптографические проблемы в проекте
 ```
 
-Or with a custom command (`/security-review`):
+Через команду (`/security-review`):
 ```
 /security-review
 /security-review src/handshake.rs
 ```
 
-## Skill Sources
+## Источники скиллов
 
-The skill pulls from two external repositories at review time:
+При ревью подгружаются скиллы из двух репозиториев:
 
-| Source | Skills | Focus |
-|--------|--------|-------|
-| [Anthropic Cybersecurity Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | `cryptographic-audit`, `network-covert`, `command-and-control`, `ransomware-encryption` | Domain-specific (crypto, network, protocol) |
-| [Trail of Bits / VoltAgent](https://github.com/VoltAgent/awesome-agent-skills) | `constant-time-analysis`, `insecure-defaults`, `static-analysis`, `differential-review`, `sharp-edges`, `variant-analysis` | Code-level (timing, secrets, SAST) |
+| Источник | Скиллы | Фокус |
+|----------|--------|-------|
+| [Anthropic Cybersecurity Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | `cryptographic-audit`, `network-covert`, `command-and-control`, `ransomware-encryption` | Доменный (крипто, сеть, протоколы) |
+| [Trail of Bits / VoltAgent](https://github.com/VoltAgent/awesome-agent-skills) | `constant-time-analysis`, `insecure-defaults`, `static-analysis`, `differential-review`, `sharp-edges`, `variant-analysis` | Уровень кода (timing, secrets, SAST) |
 
-## What It Finds
+## Что находит
 
-| Domain | Examples |
-|--------|----------|
-| Cryptography | Hardcoded secrets, no forward secrecy, timing side-channels, weak RNG |
-| Protocol | Replay attacks, missing auth, no challenge-response |
-| Network | SSRF, DoS, missing rate limits, JA3 fingerprinting |
-| Code | Panic on input, unsafe unwraps, resource leaks |
-| Infrastructure | Root user in Docker, no health checks, graceful shutdown |
+| Домен | Примеры |
+|-------|---------|
+| Криптография | Закодированные секреты, нет forward secrecy, timing-атаки, слабый RNG |
+| Протоколы | Replay-атаки, нет аутентификации, нет challenge-response |
+| Сеть | SSRF, DoS, нет rate limiting, JA3-фингерпринтинг |
+| Код | Паника на вводе, небезопасные unwrap, утечки ресурсов |
+| Инфраструктура | Root в Docker, нет health checks, нет graceful shutdown |
 
-## Output Format
+## Формат отчёта
 
 ```
 | # | Severity | Vulnerability | File:Line | Root Cause |
 |---|----------|--------------|-----------|------------|
 ```
 
-## License
+## Лицензия
 
-Apache 2.0 — same as source skills.
+Apache 2.0 — как и исходные скиллы.
