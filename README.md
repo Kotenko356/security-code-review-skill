@@ -50,12 +50,23 @@ cp -r security-code-review-skill/skills/security-code-review .cursor/skills/
 
 ## Источники скиллов
 
-При ревью подгружаются скиллы из двух репозиториев:
+При ревью подгружаются скиллы из двух репозиториев. Они дополняют друг друга на разных слоях:
 
-| Источник | Скиллы | Фокус |
-|----------|--------|-------|
-| [Anthropic Cybersecurity Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | `cryptographic-audit`, `network-covert`, `command-and-control`, `ransomware-encryption` | Доменный (крипто, сеть, протоколы) |
-| [Trail of Bits / VoltAgent](https://github.com/VoltAgent/awesome-agent-skills) | `constant-time-analysis`, `insecure-defaults`, `static-analysis`, `differential-review`, `sharp-edges`, `variant-analysis` | Уровень кода (timing, secrets, SAST) |
+| Источник | Скиллы | Роль |
+|----------|--------|------|
+| [Anthropic Cybersecurity Skills](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | `cryptographic-audit`, `network-covert`, `command-and-control`, `ransomware-encryption` | **«Что» искать** — доменные знания пентестера/криптографа: как должен работать handshake, какие атаки на ratchet, как DPI детектит трафик |
+| [Trail of Bits / VoltAgent](https://github.com/VoltAgent/awesome-agent-skills) | `constant-time-analysis`, `insecure-defaults`, `static-analysis`, `differential-review`, `sharp-edges`, `variant-analysis` | **«Как» искать** — методология security-аудитора: паттерны insecure defaults, детект timing side-channels, variant analysis для поиска одинаковых багов |
+
+На практике оба работают вместе: Anthropic говорит «ratchet должен иметь forward secrecy», Trail of Bits — «проверь каждый вызов SHA256 на месте KDF через variant analysis».
+
+### Требование: доступ к Web Search
+
+Для подгрузки скиллов из внешних репозиториев агенту нужна возможность веб-поиска или прямой загрузки URL. Например:
+- **Kilo** — установлен скилл [Firecrawl](https://github.com/firecrawl/firecrawl) (`firecrawl-scrape` или `firecrawl-search`)
+- **Claude Code** — встроенный `WebFetch`
+- **Codex CLI** — встроенный `web_search`
+
+Если у агента нет доступа к вебу, скилл всё равно сработает — проведёт ревью на основе встроенных в него чеклистов криптоаудита, протоколов и covert-каналов.
 
 ## Что находит
 
